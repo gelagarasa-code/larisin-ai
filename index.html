@@ -3,56 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LarisIn.ai Pro - Panel Konten Viral</title>
+    <title>LarisIn.ai - Content Factory UMKM</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style> .gradient-bg { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); } </style>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .bg-glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
+        .gradient-text { background: linear-gradient(90deg, #4F46E5, #9333EA); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
 </head>
-<body class="bg-slate-50 min-h-screen font-sans">
-    <header class="gradient-bg text-white py-10 px-4 text-center">
-        <h1 class="text-3xl font-bold">🚀 LarisIn.ai Pro</h1>
-        <p class="opacity-80">Edisi Khusus Member Premium</p>
-    </header>
+<body class="bg-slate-50 min-h-screen text-slate-900">
 
-    <main class="max-w-2xl mx-auto -mt-8 px-4 pb-20">
-        <div class="bg-white rounded-2xl shadow-2xl p-6 border border-slate-100">
-            <div class="mb-6">
-                <label class="block text-sm font-bold text-slate-700 mb-2">Masukkan Kode Akses Anda:</label>
-                <input type="text" id="passcode" class="w-full p-3 bg-slate-50 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Contoh: PREMIUM-MAR-2026">
+    <div id="landingPage" class="max-w-4xl mx-auto pt-20 pb-10 px-6 text-center">
+        <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full text-sm font-bold tracking-wide mb-6 inline-block">AI COPYWRITER KHUSUS UMKM 🇮🇩</span>
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">Bikin Konten Jualan <span class="gradient-text">Viral</span> Tanpa Pusing</h1>
+        <p class="text-lg text-slate-600 mb-10 max-w-2xl mx-auto">Hemat waktu 4 jam kerja. Biarkan AI LarisIn merubah deskripsi produk Anda menjadi script TikTok dan Caption Instagram yang menjual.</p>
+        
+        <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+            <a href="LINK_MAYAR_ANDA" class="w-full md:w-auto bg-indigo-600 text-white px-8 py-4 rounded-2xl font-bold shadow-xl shadow-indigo-200 hover:scale-105 transition-all text-lg">🚀 Mulai Coba Gratis</a>
+            <button onclick="document.getElementById('appSection').scrollIntoView({behavior:'smooth'})" class="w-full md:w-auto bg-white border border-slate-200 text-slate-700 px-8 py-4 rounded-2xl font-bold hover:bg-slate-50 transition-all">Sudah Punya Lisensi?</button>
+        </div>
+    </div>
+
+    <main id="appSection" class="max-w-2xl mx-auto py-12 px-6">
+        <div class="bg-glass border border-white rounded-3xl shadow-2xl p-8 shadow-slate-200/50">
+            <h2 class="text-2xl font-bold mb-6 text-center">Panel Konten Premium</h2>
+            
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Kode Lisensi / Passcode</label>
+                    <input type="text" id="passcode" class="w-full p-4 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" placeholder="Masukkan kode lisensi Anda di sini...">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Ceritakan Produk Anda</label>
+                    <textarea id="productInput" rows="4" class="w-full p-4 bg-white border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" placeholder="Contoh: Gamis Sage Green bahan premium, adem banget buat lebaran..."></textarea>
+                </div>
+
+                <button onclick="prosesAI()" id="btnAction" class="w-full bg-slate-900 text-white font-bold py-5 rounded-2xl hover:bg-slate-800 transition-all shadow-lg flex items-center justify-center gap-2">
+                    <span id="btnText">✨ Generate Konten Viral</span>
+                </button>
             </div>
-
-            <div class="mb-6">
-                <label class="block text-sm font-bold text-slate-700 mb-2">Detail Produk:</label>
-                <textarea id="productInput" rows="4" class="w-full p-4 bg-slate-50 border rounded-lg outline-none" placeholder="Tempel deskripsi atau link produk di sini..."></textarea>
-            </div>
-
-            <button onclick="prosesAI()" id="btnAction" class="w-full gradient-bg text-white font-bold py-4 rounded-xl shadow-lg hover:brightness-110 transition-all">✨ Generate Konten Viral</button>
         </div>
 
-        <div id="resultArea" class="hidden mt-8 space-y-4">
-            <div class="bg-white p-5 rounded-xl border-l-4 border-indigo-500 shadow-sm">
-                <p class="font-bold text-indigo-600 mb-2">🎥 TikTok Hook:</p>
-                <div id="tiktokOutput" class="text-slate-700 text-sm italic"></div>
+        <div id="resultArea" class="hidden mt-10 space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-indigo-100 shadow-xl shadow-indigo-50/50">
+                <div class="flex justify-between items-center mb-4 text-xs font-bold uppercase tracking-widest">
+                    <span class="text-indigo-600">🎥 TikTok Script Hook</span>
+                </div>
+                <div id="tiktokOutput" class="text-slate-700 leading-relaxed"></div>
             </div>
-            <div class="bg-white p-5 rounded-xl border-l-4 border-pink-500 shadow-sm">
-                <p class="font-bold text-pink-600 mb-2">📸 Caption Instagram:</p>
-                <div id="igOutput" class="text-slate-700 text-sm"></div>
+            
+            <div class="bg-white p-6 rounded-3xl border border-pink-100 shadow-xl shadow-pink-50/50">
+                <div class="flex justify-between items-center mb-4 text-xs font-bold uppercase tracking-widest">
+                    <span class="text-pink-600">📸 Instagram Caption</span>
+                </div>
+                <div id="igOutput" class="text-slate-700 leading-relaxed"></div>
             </div>
         </div>
     </main>
 
+    <footer class="text-center py-10 text-slate-400 text-xs tracking-widest font-bold">
+        POWERED BY LARISIN.AI & GEMINI 1.5 FLASH
+    </footer>
+
     <script>
+        // OTOMATISASI: Membaca lisensi dari URL (Redirect dari Mayar)
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const licenseFromMayar = urlParams.get('license');
+            if (licenseFromMayar) {
+                document.getElementById('passcode').value = licenseFromMayar;
+                localStorage.setItem('larisin_license', licenseFromMayar);
+                document.getElementById('appSection').scrollIntoView();
+            } else {
+                const saved = localStorage.getItem('larisin_license');
+                if (saved) document.getElementById('passcode').value = saved;
+            }
+        }
+
         async function prosesAI() {
             const input = document.getElementById('productInput').value;
             const pass = document.getElementById('passcode').value;
             const btn = document.getElementById('btnAction');
+            const btnText = document.getElementById('btnText');
 
-            if(!input || !pass) return alert("Lengkapi data dulu!");
+            if(!input || !pass) return alert("Lengkapi deskripsi produk & masukkan lisensi!");
 
-            btn.innerText = "Sedang Memproses...";
+            btnText.innerText = "Meracik Konten... 🔥";
             btn.disabled = true;
 
             try {
-                // Mengirim ke API internal Vercel (bukan langsung ke Google)
                 const res = await fetch('/api/generate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -65,10 +106,11 @@
                 document.getElementById('tiktokOutput').innerText = data.tiktok;
                 document.getElementById('igOutput').innerText = data.ig;
                 document.getElementById('resultArea').classList.remove('hidden');
+                document.getElementById('resultArea').scrollIntoView({behavior:'smooth'});
             } catch (err) {
                 alert("Gagal: " + err.message);
             } finally {
-                btn.innerText = "✨ Generate Konten Viral";
+                btnText.innerText = "✨ Generate Konten Viral";
                 btn.disabled = false;
             }
         }
