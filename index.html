@@ -3,96 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LarisIn.ai - Content Generator Viral</title>
+    <title>LarisIn.ai Pro - Panel Konten Viral</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-    </style>
+    <style> .gradient-bg { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); } </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-
-    <header class="gradient-bg text-white py-12 px-4 text-center shadow-lg">
-        <h1 class="text-4xl font-bold mb-2">🚀 LarisIn.ai</h1>
-        <p class="text-lg opacity-90">Ubah Produk Jadi Konten Viral dalam 5 Detik</p>
+<body class="bg-slate-50 min-h-screen font-sans">
+    <header class="gradient-bg text-white py-10 px-4 text-center">
+        <h1 class="text-3xl font-bold">🚀 LarisIn.ai Pro</h1>
+        <p class="opacity-80">Edisi Khusus Member Premium</p>
     </header>
 
-    <main class="max-w-4xl mx-auto py-10 px-6">
-        <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
-            <label class="block text-gray-700 font-semibold mb-3">Tempel Link Produk atau Deskripsi Singkat:</label>
-            <textarea id="productInput" rows="4" class="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all" placeholder="Contoh: Gamis syari bahan ceruty babydoll warna sage green, cocok untuk lebaran..."></textarea>
-            
-            <div class="mt-6">
-                <label class="block text-gray-700 font-semibold mb-2 text-sm">Masukkan API Key Gemini Anda:</label>
-                <input type="password" id="apiKey" class="w-full p-3 border border-gray-200 rounded-lg text-sm mb-6" placeholder="Paste API Key dari Google AI Studio di sini...">
-                
-                <button onclick="generateContent()" id="btnAction" class="w-full gradient-bg text-white font-bold py-4 rounded-xl hover:opacity-90 transition-all shadow-md transform hover:-translate-y-1">
-                    ✨ Buat Konten Sekarang
-                </button>
+    <main class="max-w-2xl mx-auto -mt-8 px-4 pb-20">
+        <div class="bg-white rounded-2xl shadow-2xl p-6 border border-slate-100">
+            <div class="mb-6">
+                <label class="block text-sm font-bold text-slate-700 mb-2">Masukkan Kode Akses Anda:</label>
+                <input type="text" id="passcode" class="w-full p-3 bg-slate-50 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Contoh: PREMIUM-MAR-2026">
             </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-bold text-slate-700 mb-2">Detail Produk:</label>
+                <textarea id="productInput" rows="4" class="w-full p-4 bg-slate-50 border rounded-lg outline-none" placeholder="Tempel deskripsi atau link produk di sini..."></textarea>
+            </div>
+
+            <button onclick="prosesAI()" id="btnAction" class="w-full gradient-bg text-white font-bold py-4 rounded-xl shadow-lg hover:brightness-110 transition-all">✨ Generate Konten Viral</button>
         </div>
 
-        <div id="resultArea" class="hidden space-y-6">
-            <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-indigo-600 pl-3">Hasil Konten Anda:</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-                    <h3 class="font-bold text-indigo-600 mb-2 italic">🎥 TikTok Viral Hook</h3>
-                    <div id="tiktokOutput" class="text-gray-700 text-sm whitespace-pre-line"></div>
-                </div>
-
-                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-                    <h3 class="font-bold text-pink-600 mb-2 italic">📸 IG / FB Caption</h3>
-                    <div id="igOutput" class="text-gray-700 text-sm whitespace-pre-line"></div>
-                </div>
+        <div id="resultArea" class="hidden mt-8 space-y-4">
+            <div class="bg-white p-5 rounded-xl border-l-4 border-indigo-500 shadow-sm">
+                <p class="font-bold text-indigo-600 mb-2">🎥 TikTok Hook:</p>
+                <div id="tiktokOutput" class="text-slate-700 text-sm italic"></div>
+            </div>
+            <div class="bg-white p-5 rounded-xl border-l-4 border-pink-500 shadow-sm">
+                <p class="font-bold text-pink-600 mb-2">📸 Caption Instagram:</p>
+                <div id="igOutput" class="text-slate-700 text-sm"></div>
             </div>
         </div>
     </main>
 
     <script>
-        async function generateContent() {
+        async function prosesAI() {
             const input = document.getElementById('productInput').value;
-            const key = document.getElementById('apiKey').value;
+            const pass = document.getElementById('passcode').value;
             const btn = document.getElementById('btnAction');
-            
-            if (!input || !key) {
-                alert("Isi deskripsi produk dan API Key dulu ya!");
-                return;
-            }
 
-            btn.innerText = "Sedang Berpikir... 🤔";
+            if(!input || !pass) return alert("Lengkapi data dulu!");
+
+            btn.innerText = "Sedang Memproses...";
             btn.disabled = true;
 
-            const prompt = `Anda adalah ahli copywriting pasar Indonesia. Buatkan konten jualan untuk produk berikut: "${input}". 
-            Berikan hasil dalam format JSON yang berisi:
-            1. "tiktok": 3 ide hook video pendek (bahasa gaul/santai).
-            2. "ig": caption Instagram yang persuasif dengan emoji dan hashtag.
-            Hanya berikan JSON saja.`;
-
             try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`, {
+                // Mengirim ke API internal Vercel (bukan langsung ke Google)
+                const res = await fetch('/api/generate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: prompt }] }]
-                    })
+                    body: JSON.stringify({ product: input, passcode: pass })
                 });
 
-                const data = await response.json();
-                const textResult = data.candidates[0].content.parts[0].text;
-                
-                // Membersihkan hasil JSON dari Gemini
-                const cleanJson = JSON.parse(textResult.replace(/```json|```/g, ""));
+                const data = await res.json();
+                if(!res.ok) throw new Error(data.error);
 
-                document.getElementById('tiktokOutput').innerText = cleanJson.tiktok;
-                document.getElementById('igOutput').innerText = cleanJson.ig;
+                document.getElementById('tiktokOutput').innerText = data.tiktok;
+                document.getElementById('igOutput').innerText = data.ig;
                 document.getElementById('resultArea').classList.remove('hidden');
-            } catch (error) {
-                alert("Ups! Ada masalah. Pastikan API Key benar.");
-                console.error(error);
+            } catch (err) {
+                alert("Gagal: " + err.message);
             } finally {
-                btn.innerText = "✨ Buat Konten Sekarang";
+                btn.innerText = "✨ Generate Konten Viral";
                 btn.disabled = false;
             }
         }
